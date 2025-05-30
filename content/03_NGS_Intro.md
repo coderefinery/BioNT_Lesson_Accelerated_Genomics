@@ -15,9 +15,13 @@
 
 ### Sequencing throughput over the years
 
+![alt text](image.png)
+
 [Sequencing tech used in the Human Genome Project](https://x.com/broadinstitute/status/472019681268998144?lang=en)
 
 ## Main steps of DNA sequencing
+
+![alt text](image-1.png)
 
 ## NGS data analysis (Germline variant calling)
 

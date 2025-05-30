@@ -1,4 +1,4 @@
-# LESSON NAME
+# Introduction to Accelerated Genomics
 
 Intro
 
