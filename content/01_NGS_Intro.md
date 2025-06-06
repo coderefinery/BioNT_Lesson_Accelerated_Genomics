@@ -47,7 +47,6 @@
 
 - Tailoring disease prevention and treatment based on the person’s genetic makeup
 - Here, we analyse raw sequencing data and identify changes in DNA that could lead to a diseases
-- Raw data analysis involves a number of complex processes and the collections of such processes are commonly known as “Sequence analysis workflows”
 
 ### Precision genomics in routine clinical practice
 
