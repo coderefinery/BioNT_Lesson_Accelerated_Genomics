@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic CPU-native NGS data processing workflow &mdash; Introduction to Accelerated Genomics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="NVIDIA Parabricks" href="../03.Parabricks/" />
+    <link rel="prev" title="Introduction to NGS" href="../01_NGS_Intro/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Introduction to Accelerated Genomics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../01_NGS_Intro/">Introduction to NGS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic CPU-native NGS data processing workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#stage-1-read-mapping-and-alignment-refinement">Stage 1: Read mapping and alignment refinement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-bwa-read-mapping-and-sorting">Step 1: BWA read mapping and sorting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-gatk-markduplicates">Step 2: GATK MarkDuplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-gatk-baserecalibrator">Step 3: GATK BaseRecalibrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-gatk-applybqsr">Step 4: GATK ApplyBQSR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-2-variant-calling-via-haplotypecaller">Stage 2: Variant calling via HaplotypeCaller</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../03.Parabricks/">NVIDIA Parabricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04.Hands-on/">Parabricks Hands-on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_Parabricks_vs_CPU/">Benchmarking accelerated next-generation sequencing analysis pipelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Introduction to Accelerated Genomics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Basic CPU-native NGS data processing workflow</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/content/blob/main/content/02_Basic_CPUwf.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basic-cpu-native-ngs-data-processing-workflow">
+<h1>Basic CPU-native NGS data processing workflow<a class="headerlink" href="#basic-cpu-native-ngs-data-processing-workflow" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Simplest NGS data processing workflows have two main stages</p>
+<ul>
+<li><p>Read mapping and alignment refinement</p></li>
+<li><p>Variant calling</p></li>
+</ul>
+</li>
+<li><p><strong>Test data:</strong> <code class="docutils literal notranslate"><span class="pre">https://s3.amazonaws.com/parabricks.sample/parabricks_sample.tar.gz</span></code></p></li>
+<li><p><strong>Source of the test data -</strong> <code class="docutils literal notranslate"><span class="pre">NVIDIA</span> <span class="pre">tutorials</span> <span class="pre">&lt;https://docs.nvidia.com/clara/parabricks/4.3.0/tutorials/gettingthesampledata.html&gt;</span></code>_</p></li>
+</ul>
+<section id="stage-1-read-mapping-and-alignment-refinement">
+<h2>Stage 1: Read mapping and alignment refinement<a class="headerlink" href="#stage-1-read-mapping-and-alignment-refinement" title="Link to this heading"></a></h2>
+<section id="step-1-bwa-read-mapping-and-sorting">
+<h3>Step 1: BWA read mapping and sorting<a class="headerlink" href="#step-1-bwa-read-mapping-and-sorting" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+
+<span class="nv">FASTA</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="nv">READ1</span><span class="o">=</span><span class="s2">&quot;Data/sample_1.fq.gz&quot;</span>
+<span class="nv">READ2</span><span class="o">=</span><span class="s2">&quot;Data/sample_2.fq.gz&quot;</span>
+<span class="nv">BAM_OUT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU.bam&quot;</span>
+
+<span class="c1">## Run BWA MEM</span>
+<span class="c1">### Source: https://github.com/nf-core/sarek/blob/f034b737630972e90aeae851e236f9d4292b9a4f/modules/nf-core/bwa/mem/main.nf#L30</span>
+bwa<span class="w"> </span>mem<span class="w"> </span><span class="se">\</span>
+-t<span class="w"> </span><span class="m">64</span><span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="s2">&quot;@RG\tID:rg1\tLB:lib1\tPL:bar\tSM:SM1\tPU:SM1_rg1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="si">${</span><span class="nv">READ1</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">READ2</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="p">|</span><span class="w"> </span>samtools<span class="w">     </span>sort<span class="w">     </span>-@64<span class="w">     </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span>-
+
+samtools<span class="w"> </span>index<span class="w"> </span>-@64<span class="w"> </span>-b<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-gatk-markduplicates">
+<h3>Step 2: GATK MarkDuplicates<a class="headerlink" href="#step-2-gatk-markduplicates" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU.bam&quot;</span>
+<span class="nv">BAM_OUT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_markdup.bam&quot;</span>
+
+<span class="c1">## Mark duplicated reads in BAM file</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-Xss3m -XX:-UsePerfData&quot;</span><span class="w"> </span>MarkDuplicates<span class="w"> </span><span class="se">\</span>
+--VALIDATION_STRINGENCY<span class="w"> </span>SILENT<span class="w"> </span><span class="se">\</span>
+-I<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-O<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-M<span class="w"> </span>metrics.txt<span class="w"> </span><span class="se">\</span>
+--TMP_DIR<span class="w"> </span>temp_dir
+
+samtools<span class="w"> </span>index<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-gatk-baserecalibrator">
+<h3>Step 3: GATK BaseRecalibrator<a class="headerlink" href="#step-3-gatk-baserecalibrator" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">FASTA</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="nv">KNOWN_SITES</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.known_indels.vcf.gz&quot;</span>
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_markdup.bam&quot;</span>
+<span class="nv">RECAL_FILE</span><span class="o">=</span><span class="s2">&quot;CPU_recal.txt&quot;</span>
+
+<span class="c1">## Generate BQSR Report</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-XX:-UsePerfData&quot;</span><span class="w"> </span>BaseRecalibrator<span class="w"> </span><span class="se">\</span>
+--input<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--output<span class="w"> </span><span class="si">${</span><span class="nv">RECAL_OUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--known-sites<span class="w"> </span><span class="si">${</span><span class="nv">KNOWN_SITES</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--reference<span class="w"> </span><span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-gatk-applybqsr">
+<h3>Step 4: GATK ApplyBQSR<a class="headerlink" href="#step-4-gatk-applybqsr" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">FASTA</span><span class="o">=</span>GRCh38<span class="s2">&quot;/&quot;</span>GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_markdup.bam&quot;</span>
+<span class="nv">RECAL_FILE</span><span class="o">=</span><span class="s2">&quot;CPU_recal.txt&quot;</span>
+<span class="nv">BAM_OUT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU_markdup_BQSR.bam&quot;</span>
+
+<span class="c1">## Run ApplyBQSR Step</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-XX:-UsePerfData&quot;</span><span class="w"> </span>ApplyBQSR<span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-I<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--bqsr-recal-file<span class="w"> </span><span class="si">${</span><span class="nv">RECAL_FILE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-O<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="stage-2-variant-calling-via-haplotypecaller">
+<h2>Stage 2: Variant calling via HaplotypeCaller<a class="headerlink" href="#stage-2-variant-calling-via-haplotypecaller" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+<span class="nv">FASTA</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU_markdup_BQSR.bam&quot;</span>
+
+<span class="c1">## Variant calling with HaplotypeCaller</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-XX:-UsePerfData&quot;</span><span class="w"> </span>HaplotypeCaller<span class="w"> </span><span class="se">\</span>
+--input<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--output<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span>.vcf<span class="w"> </span><span class="se">\</span>
+--reference<span class="w"> </span><span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--native-pair-hmm-threads<span class="w"> </span><span class="m">64</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../01_NGS_Intro/" class="btn btn-neutral float-left" title="Introduction to NGS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../03.Parabricks/" class="btn btn-neutral float-right" title="NVIDIA Parabricks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
