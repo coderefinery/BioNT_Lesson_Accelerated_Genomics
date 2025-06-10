@@ -1,0 +1,34 @@
+# NVIDIA Parabricks
+
+- Parabricks offers range of accelerated NGS data processing tools/commands
+- [Parabricks documentation](https://docs.nvidia.com/clara/parabricks/latest/index.html):
+  > "Parabricks was built from the ground up by GPU computing and Deep Learning experts who wanted to develop the fastest and most efficient possible implementation of common genomics algorithms."
+
+- We can use these commands and create a simple NGS data processing workflows with two main stages
+  - Read mapping and alignment refinement
+  - Variant calling
+
+![alt text](image-2.png)
+*[Ref:](https://docs.nvidia.com/clara/parabricks/latest/overview.html)*
+
+## Parabricks workflow (basic workflow)
+
+### Stage 1: Read mapping and alignment refinement
+
+#### Step 1: fq2bam
+
+![alt text](image-3.png)
+
+*[Source](https://docs.nvidia.com/clara/parabricks/latest/documentation/tooldocs/man_fq2bam.html)*
+
+#### Step 2: applybqsr
+
+- Compatible GATK4 Command: `gatk ApplyBQSR`
+
+### Stage 2: Variant calling
+
+#### Parabricks HaplotypeCaller
+
+![alt text](image-4.png)
+
+*[Source](https://docs.nvidia.com/clara/parabricks/latest/documentation/tooldocs/man_haplotypecaller.html)*

@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parabricks Hands-on &mdash; Introduction to Accelerated Genomics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Benchmarking accelerated next-generation sequencing analysis pipelines" href="../05_Parabricks_vs_CPU/" />
+    <link rel="prev" title="NVIDIA Parabricks" href="../03.Parabricks/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Introduction to Accelerated Genomics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../01_NGS_Intro/">Introduction to NGS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_Basic_CPUwf/">Basic CPU-native NGS data processing workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03.Parabricks/">NVIDIA Parabricks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parabricks Hands-on</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-01-checklist">Step 01: Checklist</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-02-2-applybqsr">Step 02.2: applybqsr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-02-3-haplotypecaller">Step 02.3: haplotypecaller</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-run-docker-in-interactive-mode">Step 3: Run docker in interactive mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-execute-run-scripts">Step 4: Execute run_scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-inspect-results">Step 5: Inspect results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../05_Parabricks_vs_CPU/">Benchmarking accelerated next-generation sequencing analysis pipelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Introduction to Accelerated Genomics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Parabricks Hands-on</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/content/blob/main/content/04.Hands-on.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parabricks-hands-on">
+<h1>Parabricks Hands-on<a class="headerlink" href="#parabricks-hands-on" title="Link to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Run Basic Parabricks pipeline</p></li>
+<li><p>Time: 30 minutes</p></li>
+</ul>
+</div>
+<section id="step-01-checklist">
+<h2>Step 01: Checklist<a class="headerlink" href="#step-01-checklist" title="Link to this heading"></a></h2>
+<div class="admonition-checklist checklist admonition" id="checklist-0">
+<p class="admonition-title">Checklist</p>
+<ol class="arabic simple">
+<li><p>Login to the VM assigned to you (Follow the instructions given previously)</p></li>
+<li><p>Check for docker image - <code class="docutils literal notranslate"><span class="pre">nvcr.io/nvidia/clara/clara-parabricks:4.3.0-1</span></code></p></li>
+</ol>
+<p><strong>Commands:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List Docker images in the VM</span>
+docker<span class="w"> </span>images
+<span class="c1"># Move the home directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$HOME</span>
+<span class="c1"># Check current working-directory (check if you are in $HOME)</span>
+<span class="nb">echo</span><span class="w"> </span>current<span class="w"> </span>working<span class="w"> </span>directory:<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+</pre></div>
+</div>
+<div class="admonition-output solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Output</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>REPOSITORY                              TAG       IMAGE ID       CREATED         SIZE
+nvcr.io/nvidia/clara/clara-parabricks   4.3.0-1   1a84efd2eedf   14 months ago   3.23GB
+
+current working directory: /home/ubuntu
+</pre></div>
+</div>
+</div>
+</div>
+<div class="docutils">
+<p class="rubric" id="step-02-generate-parabricks-run-scripts">Step 02: Generate Parabricks run-scripts</p>
+<p class="rubric" id="step-02-1-fq2bam">Step 02.1: fq2bam</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/bash</span>
+
+<span class="s1">FASTA=&quot;/data/ngs/ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="s1">KNOWN_SITES=&quot;/data/ngs/ref/Homo_sapiens_assembly38.known_indels.vcf.gz&quot;</span>
+
+<span class="s1">READ1=&quot;/data/ngs/fastq/dw_sample_R1.fastq.gz&quot;</span>
+<span class="s1">READ2=&quot;/data/ngs/fastq/dw_sample_R2.fastq.gz&quot;</span>
+
+<span class="s1">pbrun fq2bam \</span>
+<span class="s1">--ref ${FASTA} \</span>
+<span class="s1">--in-fq ${READ1} ${READ2} \</span>
+<span class="s1">--num-gpus 1 \</span>
+<span class="s1">--knownSites ${KNOWN_SITES} \</span>
+<span class="s1">--out-bam pbrun_fq2bam_GPU.bam \</span>
+<span class="s1">--out-recal-file pbrun_recal_gpu.txt \</span>
+<span class="s1">--logfile fq2bam.log \</span>
+<span class="s1">--tmp-dir .&#39;</span><span class="w">  </span>&gt;<span class="w"> </span>fq2bam.sh
+</pre></div>
+</div>
+</div>
+</div>
+<section id="step-02-2-applybqsr">
+<h3>Step 02.2: applybqsr<a class="headerlink" href="#step-02-2-applybqsr" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/bash</span>
+
+<span class="s1">FASTA=&quot;/data/ngs/ref/Homo_sapiens_assembly38.fasta&quot;</span>
+
+<span class="s1">pbrun applybqsr \</span>
+<span class="s1">--ref ${FASTA} \</span>
+<span class="s1">--in-bam pbrun_fq2bam_GPU.bam \</span>
+<span class="s1">--num-gpus 1 \</span>
+<span class="s1">--in-recal-file pbrun_recal_gpu.txt \</span>
+<span class="s1">--logfile applybqsr.log \</span>
+<span class="s1">--out-bam  pbrun_fq2bam_GPU_applybqsr.bam &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>applybqsr.sh<span class="w"> </span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="step-02-3-haplotypecaller">
+<h3>Step 02.3: haplotypecaller<a class="headerlink" href="#step-02-3-haplotypecaller" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/bash</span>
+
+<span class="s1">FASTA=&quot;/data/ngs/ref/Homo_sapiens_assembly38.fasta&quot;</span>
+
+<span class="s1">pbrun haplotypecaller \</span>
+<span class="s1">--ref ${FASTA} \</span>
+<span class="s1">--num-gpus 1 \</span>
+<span class="s1">--in-bam pbrun_fq2bam_GPU_applybqsr.bam \</span>
+<span class="s1">--logfile hc.log \</span>
+<span class="s1">--out-variants  pbrun_fq2bam_GPU.bam_applybqsr.vcf &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>hc.sh
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="step-3-run-docker-in-interactive-mode">
+<h2>Step 3: Run docker in interactive mode<a class="headerlink" href="#step-3-run-docker-in-interactive-mode" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Run docker in interactive mode and enter the docker container</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+-it<span class="w"> </span><span class="se">\</span>
+--rm<span class="w"> </span><span class="se">\</span>
+--gpus<span class="w"> </span>all<span class="w"> </span><span class="se">\</span>
+-v<span class="w"> </span>/data:/data<span class="w"> </span><span class="se">\</span>
+-v<span class="w"> </span><span class="nv">$PWD</span>:<span class="nv">$PWD</span><span class="w"> </span><span class="se">\</span>
+-w<span class="w"> </span><span class="nv">$PWD</span><span class="w"> </span><span class="se">\</span>
+nvcr.io/nvidia/clara/clara-parabricks:4.3.0-1<span class="w"> </span>bash
+</pre></div>
+</div>
+</div>
+</section>
+<section id="step-4-execute-run-scripts">
+<h2>Step 4: Execute run_scripts<a class="headerlink" href="#step-4-execute-run-scripts" title="Link to this heading"></a></h2>
+<div class="admonition-now-you-are-inside-the-docker-container instructor-note admonition" id="instructor-note-0">
+<p class="admonition-title">Now you are inside the docker container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you are inside docker; you&#39;ll see `root@712558e5c91f:/home/ubuntu#`</span>
+<span class="c1"># Execute bash scripts you created</span>
+
+<span class="c1"># Run fq2bam.sh </span>
+bash<span class="w"> </span>fq2bam.sh
+
+<span class="c1"># Run applybqsr.sh </span>
+bash<span class="w"> </span>applybqsr.sh<span class="w"> </span>
+
+<span class="c1"># Run hc.sh</span>
+bash<span class="w"> </span>hc.sh
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Exit the docker container with <code class="docutils literal notranslate"><span class="pre">exit</span></code> command</p></li>
+</ul>
+</div>
+<section id="step-5-inspect-results">
+<h3>Step 5: Inspect results<a class="headerlink" href="#step-5-inspect-results" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ls -l
+total 1041856
+-rw-r--r-- 1 root root      1707 Jun  5 21:42 applybqsr.log
+-rw-rw-r-- 1 1000 1000       255 Jun  5 21:16 applybqsr.sh
+drwxrwxr-x 3 1000 1000      4096 Jun  2 10:49 data
+-rw-r--r-- 1 root root   2551016 Jun  5 13:37 deepvariant.vcf
+-rw-r--r-- 1 root root      1893 Jun  5 13:37 dv.log
+-rw-rw-r-- 1 1000 1000        33 Jun  4 13:25 file-with-numbers.txt
+-rw-r--r-- 1 root root      4976 Jun  5 21:42 fq2bam.log
+-rw-rw-r-- 1 1000 1000       443 Jun  5 21:15 fq2bam.sh
+-rw-r--r-- 1 root root      1941 Jun  5 21:44 hc.log
+-rw-rw-r-- 1 1000 1000       235 Jun  5 21:17 hc.sh
+-rw-r--r-- 1 root root 516112463 Jun  5 21:42 pbrun_fq2bam_GPU.bam
+-rw-r--r-- 1 root root   5447024 Jun  5 21:42 pbrun_fq2bam_GPU.bam.bai
+-rw-r--r-- 1 root root   4719876 Jun  5 21:44 pbrun_fq2bam_GPU.bam_applybqsr.vcf
+-rw-r--r-- 1 root root 532038424 Jun  5 21:42 pbrun_fq2bam_GPU_applybqsr.bam
+-rw-r--r-- 1 root root   5447024 Jun  5 21:42 pbrun_fq2bam_GPU_applybqsr.bam.bai
+-rw-r--r-- 1 root root     86706 Jun  5 21:42 pbrun_fq2bam_GPU_chrs.txt
+-rw-r--r-- 1 root root    392014 Jun  5 21:42 pbrun_recal_gpu.txt
+-rw-r--r-- 1 root root         0 Jun  4 16:59 test
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../03.Parabricks/" class="btn btn-neutral float-left" title="NVIDIA Parabricks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../05_Parabricks_vs_CPU/" class="btn btn-neutral float-right" title="Benchmarking accelerated next-generation sequencing analysis pipelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

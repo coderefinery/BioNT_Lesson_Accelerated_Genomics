@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to Accelerated Genomics documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_rtd_theme_ext_color_contrast.css" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js"></script>
+      <script src="_static/doctools.js"></script>
+      <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/clipboard.min.js"></script>
+      <script src="_static/copybutton.js"></script>
+      <script src="_static/minipres.js"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+      <script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";
+window.addEventListener("load", () => mermaid.run());
+</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Introduction to Accelerated Genomics
+          </a>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-01_NGS_Intro">Introduction to NGS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-02_Basic_CPUwf">Basic CPU-native NGS data processing workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-03.Parabricks">NVIDIA Parabricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-04.Hands-on">Parabricks Hands-on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-05_Parabricks_vs_CPU">Benchmarking accelerated next-generation sequencing analysis pipelines</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Introduction to Accelerated Genomics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction to Accelerated Genomics  documentation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/content/blob/main/content/index" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction-to-accelerated-genomics">
+<h1>Introduction to Accelerated Genomics<a class="headerlink" href="#introduction-to-accelerated-genomics" title="Link to this heading"></a></h1>
+<div class="important docutils">
+<p class="rubric" id="applied-machine-learning-for-biological-data-module-2-day-5">Applied Machine Learning for Biological Data - Module 2, Day 5</p>
+<ul class="simple">
+<li><p>Date: June 6, 2025</p></li>
+<li><p>Time: 09:00-16:00</p></li>
+</ul>
+</div>
+<div class="admonition-prerequisites prerequisites admonition" id="prerequisites-0">
+<p class="admonition-title">Prerequisites</p>
+<ul class="simple">
+<li><p>BioNT course - <a class="reference external" href="https://www.cecam.org/workshop-details/a-practical-introduction-to-bioinformatics-and-rna-seq-using-galaxy-1260">A practical introduction to bioinformatics</a> or equivalent knowledge</p></li>
+<li><p>Introduction to Docker</p></li>
+<li><p>Introduction to GPU</p></li>
+</ul>
+</div>
+<section id="learning-outcomes">
+<h2>Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Gain a foundational understanding of the NVIDIA Parabricks software suite</p></li>
+<li><p>Acquire practical experience in using Parabricks tools for basic germline variant calling workflow</p></li>
+</ul>
+</section>
+<section id="overall-schedule">
+<h2>Overall schedule<a class="headerlink" href="#overall-schedule" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Introduction to NGS</p></li>
+<li><p>Basic CPU-native NGS data processing workflow</p></li>
+<li><p>Introduction to NVIDIA Parabricks</p></li>
+<li><p>Parabricks Hands-on</p></li>
+<li><p>Parabricks vs CPU-native NGS data processing</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<span id="document-01_NGS_Intro"></span><section id="introduction-to-ngs">
+<h3>Introduction to NGS<a class="headerlink" href="#introduction-to-ngs" title="Link to this heading"></a></h3>
+<section id="next-generation-sequencing-ngs">
+<h4>Next Generation Sequencing (NGS)<a class="headerlink" href="#next-generation-sequencing-ngs" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>DNA Sequencing process</p>
+<ul>
+<li><p>Process of determining the order of nucleotides in a genome (genome codes the complete set of instructions for cellular functions)</p></li>
+</ul>
+</li>
+<li><p>Next Generation Sequencing (NGS)</p>
+<ul>
+<li><p>Increasing the throughput by massively parallelising the sequencing process</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sequencing-throughput-and-sequencing-cost">
+<h4>Sequencing throughput and sequencing cost<a class="headerlink" href="#sequencing-throughput-and-sequencing-cost" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Today, we are no longer limited by the availability of sequencing data due to the rapidly decreasing cost</p></li>
+</ul>
+<section id="sequencing-cost-over-the-years">
+<h5>Sequencing cost over the years<a class="headerlink" href="#sequencing-cost-over-the-years" title="Link to this heading"></a></h5>
+</section>
+<section id="sequencing-throughput-over-the-years">
+<h5>Sequencing throughput over the years<a class="headerlink" href="#sequencing-throughput-over-the-years" title="Link to this heading"></a></h5>
+<p><img alt="alt text" src="_images/image.png" /></p>
+<p><a class="reference external" href="https://x.com/broadinstitute/status/472019681268998144?lang=en">Sequencing tech used in the Human Genome Project</a></p>
+</section>
+</section>
+<section id="main-steps-of-dna-sequencing">
+<h4>Main steps of DNA sequencing<a class="headerlink" href="#main-steps-of-dna-sequencing" title="Link to this heading"></a></h4>
+<p><img alt="alt text" src="_images/image-1.png" /></p>
+</section>
+<section id="ngs-data-analysis-germline-variant-calling">
+<h4>NGS data analysis (Germline variant calling)<a class="headerlink" href="#ngs-data-analysis-germline-variant-calling" title="Link to this heading"></a></h4>
+<section id="main-steps-in-ngs-analysis">
+<h5>Main steps in NGS analysis<a class="headerlink" href="#main-steps-in-ngs-analysis" title="Link to this heading"></a></h5>
+<pre  class="mermaid">
+           graph TD;
+      i1(Raw data) --&gt; 1
+      i2(Reference data) --&gt; 1
+      1(Mapping raw data onto the reference)
+      1 -- Alignment file --&gt; 2
+      2(Optimization &amp; fine-tuning of the alignment file)
+      2 -- Optimised &amp; fine-tuned alignment file --&gt; 3
+      3(Identify DNA changes)
+
+      classDef highlight fill:#99ccff;
+      classDef white fill:#ffffff;
+      class 1,2,3, highlight;
+    </pre></section>
+<section id="precision-genomics">
+<h5>Precision genomics<a class="headerlink" href="#precision-genomics" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Tailoring disease prevention and treatment based on the person’s genetic makeup</p></li>
+<li><p>Here, we analyse raw sequencing data and identify changes in DNA that could lead to a diseases</p></li>
+</ul>
+</section>
+<section id="precision-genomics-in-routine-clinical-practice">
+<h5>Precision genomics in routine clinical practice<a class="headerlink" href="#precision-genomics-in-routine-clinical-practice" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Sequence analysis workflows are routinely used in current clinical setting</p></li>
+<li><p>However they all (a large majority) use CPUs for the computing power</p></li>
+</ul>
+</section>
+</section>
+</section>
+<span id="document-02_Basic_CPUwf"></span><section id="basic-cpu-native-ngs-data-processing-workflow">
+<h3>Basic CPU-native NGS data processing workflow<a class="headerlink" href="#basic-cpu-native-ngs-data-processing-workflow" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Simplest NGS data processing workflows have two main stages</p>
+<ul>
+<li><p>Read mapping and alignment refinement</p></li>
+<li><p>Variant calling</p></li>
+</ul>
+</li>
+<li><p><strong>Test data:</strong> <code class="docutils literal notranslate"><span class="pre">https://s3.amazonaws.com/parabricks.sample/parabricks_sample.tar.gz</span></code></p></li>
+<li><p><strong>Source of the test data -</strong> <code class="docutils literal notranslate"><span class="pre">NVIDIA</span> <span class="pre">tutorials</span> <span class="pre">&lt;https://docs.nvidia.com/clara/parabricks/4.3.0/tutorials/gettingthesampledata.html&gt;</span></code>_</p></li>
+</ul>
+<section id="stage-1-read-mapping-and-alignment-refinement">
+<h4>Stage 1: Read mapping and alignment refinement<a class="headerlink" href="#stage-1-read-mapping-and-alignment-refinement" title="Link to this heading"></a></h4>
+<section id="step-1-bwa-read-mapping-and-sorting">
+<h5>Step 1: BWA read mapping and sorting<a class="headerlink" href="#step-1-bwa-read-mapping-and-sorting" title="Link to this heading"></a></h5>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+
+<span class="nv">FASTA</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="nv">READ1</span><span class="o">=</span><span class="s2">&quot;Data/sample_1.fq.gz&quot;</span>
+<span class="nv">READ2</span><span class="o">=</span><span class="s2">&quot;Data/sample_2.fq.gz&quot;</span>
+<span class="nv">BAM_OUT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU.bam&quot;</span>
+
+<span class="c1">## Run BWA MEM</span>
+<span class="c1">### Source: https://github.com/nf-core/sarek/blob/f034b737630972e90aeae851e236f9d4292b9a4f/modules/nf-core/bwa/mem/main.nf#L30</span>
+bwa<span class="w"> </span>mem<span class="w"> </span><span class="se">\</span>
+-t<span class="w"> </span><span class="m">64</span><span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="s2">&quot;@RG\tID:rg1\tLB:lib1\tPL:bar\tSM:SM1\tPU:SM1_rg1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="si">${</span><span class="nv">READ1</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">READ2</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="p">|</span><span class="w"> </span>samtools<span class="w">     </span>sort<span class="w">     </span>-@64<span class="w">     </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span>-
+
+samtools<span class="w"> </span>index<span class="w"> </span>-@64<span class="w"> </span>-b<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-gatk-markduplicates">
+<h5>Step 2: GATK MarkDuplicates<a class="headerlink" href="#step-2-gatk-markduplicates" title="Link to this heading"></a></h5>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU.bam&quot;</span>
+<span class="nv">BAM_OUT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_markdup.bam&quot;</span>
+
+<span class="c1">## Mark duplicated reads in BAM file</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-Xss3m -XX:-UsePerfData&quot;</span><span class="w"> </span>MarkDuplicates<span class="w"> </span><span class="se">\</span>
+--VALIDATION_STRINGENCY<span class="w"> </span>SILENT<span class="w"> </span><span class="se">\</span>
+-I<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-O<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-M<span class="w"> </span>metrics.txt<span class="w"> </span><span class="se">\</span>
+--TMP_DIR<span class="w"> </span>temp_dir
+
+samtools<span class="w"> </span>index<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-gatk-baserecalibrator">
+<h5>Step 3: GATK BaseRecalibrator<a class="headerlink" href="#step-3-gatk-baserecalibrator" title="Link to this heading"></a></h5>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">FASTA</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="nv">KNOWN_SITES</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.known_indels.vcf.gz&quot;</span>
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_markdup.bam&quot;</span>
+<span class="nv">RECAL_FILE</span><span class="o">=</span><span class="s2">&quot;CPU_recal.txt&quot;</span>
+
+<span class="c1">## Generate BQSR Report</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-XX:-UsePerfData&quot;</span><span class="w"> </span>BaseRecalibrator<span class="w"> </span><span class="se">\</span>
+--input<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--output<span class="w"> </span><span class="si">${</span><span class="nv">RECAL_OUT</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--known-sites<span class="w"> </span><span class="si">${</span><span class="nv">KNOWN_SITES</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--reference<span class="w"> </span><span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-gatk-applybqsr">
+<h5>Step 4: GATK ApplyBQSR<a class="headerlink" href="#step-4-gatk-applybqsr" title="Link to this heading"></a></h5>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">FASTA</span><span class="o">=</span>GRCh38<span class="s2">&quot;/&quot;</span>GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_markdup.bam&quot;</span>
+<span class="nv">RECAL_FILE</span><span class="o">=</span><span class="s2">&quot;CPU_recal.txt&quot;</span>
+<span class="nv">BAM_OUT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU_markdup_BQSR.bam&quot;</span>
+
+<span class="c1">## Run ApplyBQSR Step</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-XX:-UsePerfData&quot;</span><span class="w"> </span>ApplyBQSR<span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-I<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--bqsr-recal-file<span class="w"> </span><span class="si">${</span><span class="nv">RECAL_FILE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+-O<span class="w"> </span><span class="si">${</span><span class="nv">BAM_OUT</span><span class="si">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="stage-2-variant-calling-via-haplotypecaller">
+<h4>Stage 2: Variant calling via HaplotypeCaller<a class="headerlink" href="#stage-2-variant-calling-via-haplotypecaller" title="Link to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+
+<span class="nv">SAMPLE_NAME</span><span class="o">=</span><span class="s2">&quot;pb_sample&quot;</span>
+<span class="nv">FASTA</span><span class="o">=</span><span class="s2">&quot;Ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="nv">BAM_IN</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE_NAME</span><span class="si">}</span><span class="s2">_CPU_markdup_BQSR.bam&quot;</span>
+
+<span class="c1">## Variant calling with HaplotypeCaller</span>
+gatk<span class="w"> </span>--java-options<span class="w">  </span><span class="s2">&quot;-XX:-UsePerfData&quot;</span><span class="w"> </span>HaplotypeCaller<span class="w"> </span><span class="se">\</span>
+--input<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--output<span class="w"> </span><span class="si">${</span><span class="nv">BAM_IN</span><span class="si">}</span>.vcf<span class="w"> </span><span class="se">\</span>
+--reference<span class="w"> </span><span class="si">${</span><span class="nv">FASTA</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--native-pair-hmm-threads<span class="w"> </span><span class="m">64</span>
+</pre></div>
+</div>
+</section>
+</section>
+<span id="document-03.Parabricks"></span><section id="nvidia-parabricks">
+<h3>NVIDIA Parabricks<a class="headerlink" href="#nvidia-parabricks" title="Link to this heading"></a></h3>
+<ul>
+<li><p>Parabricks offers range of accelerated NGS data processing tools/commands</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/clara/parabricks/latest/index.html">Parabricks documentation</a>:</p>
+<blockquote>
+<div><p>“Parabricks was built from the ground up by GPU computing and Deep Learning experts who wanted to develop the fastest and most efficient possible implementation of common genomics algorithms.”</p>
+</div></blockquote>
+</li>
+<li><p>We can use these commands and create a simple NGS data processing workflows with two main stages</p>
+<ul class="simple">
+<li><p>Read mapping and alignment refinement</p></li>
+<li><p>Variant calling</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="_images/image-2.png" />
+<em><a class="reference external" href="https://docs.nvidia.com/clara/parabricks/latest/overview.html">Ref:</a></em></p>
+<section id="parabricks-workflow-basic-workflow">
+<h4>Parabricks workflow (basic workflow)<a class="headerlink" href="#parabricks-workflow-basic-workflow" title="Link to this heading"></a></h4>
+<section id="stage-1-read-mapping-and-alignment-refinement">
+<h5>Stage 1: Read mapping and alignment refinement<a class="headerlink" href="#stage-1-read-mapping-and-alignment-refinement" title="Link to this heading"></a></h5>
+<section id="step-1-fq2bam">
+<h6>Step 1: fq2bam<a class="headerlink" href="#step-1-fq2bam" title="Link to this heading"></a></h6>
+<p><img alt="alt text" src="_images/image-3.png" /></p>
+<p><em><a class="reference external" href="https://docs.nvidia.com/clara/parabricks/latest/documentation/tooldocs/man_fq2bam.html">Source</a></em></p>
+</section>
+<section id="step-2-applybqsr">
+<h6>Step 2: applybqsr<a class="headerlink" href="#step-2-applybqsr" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p>Compatible GATK4 Command: <code class="docutils literal notranslate"><span class="pre">gatk</span> <span class="pre">ApplyBQSR</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="stage-2-variant-calling">
+<h5>Stage 2: Variant calling<a class="headerlink" href="#stage-2-variant-calling" title="Link to this heading"></a></h5>
+<section id="parabricks-haplotypecaller">
+<h6>Parabricks HaplotypeCaller<a class="headerlink" href="#parabricks-haplotypecaller" title="Link to this heading"></a></h6>
+<p><img alt="alt text" src="_images/image-4.png" /></p>
+<p><em><a class="reference external" href="https://docs.nvidia.com/clara/parabricks/latest/documentation/tooldocs/man_haplotypecaller.html">Source</a></em></p>
+</section>
+</section>
+</section>
+</section>
+<span id="document-04.Hands-on"></span><section id="parabricks-hands-on">
+<h3>Parabricks Hands-on<a class="headerlink" href="#parabricks-hands-on" title="Link to this heading"></a></h3>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Run Basic Parabricks pipeline</p></li>
+<li><p>Time: 30 minutes</p></li>
+</ul>
+</div>
+<section id="step-01-checklist">
+<h4>Step 01: Checklist<a class="headerlink" href="#step-01-checklist" title="Link to this heading"></a></h4>
+<div class="admonition-checklist checklist admonition" id="checklist-0">
+<p class="admonition-title">Checklist</p>
+<ol class="arabic simple">
+<li><p>Login to the VM assigned to you (Follow the instructions given previously)</p></li>
+<li><p>Check for docker image - <code class="docutils literal notranslate"><span class="pre">nvcr.io/nvidia/clara/clara-parabricks:4.3.0-1</span></code></p></li>
+</ol>
+<p><strong>Commands:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List Docker images in the VM</span>
+docker<span class="w"> </span>images
+<span class="c1"># Move the home directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$HOME</span>
+<span class="c1"># Check current working-directory (check if you are in $HOME)</span>
+<span class="nb">echo</span><span class="w"> </span>current<span class="w"> </span>working<span class="w"> </span>directory:<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+</pre></div>
+</div>
+<div class="admonition-output solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Output</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>REPOSITORY                              TAG       IMAGE ID       CREATED         SIZE
+nvcr.io/nvidia/clara/clara-parabricks   4.3.0-1   1a84efd2eedf   14 months ago   3.23GB
+
+current working directory: /home/ubuntu
+</pre></div>
+</div>
+</div>
+</div>
+<div class="docutils">
+<p class="rubric" id="step-02-generate-parabricks-run-scripts">Step 02: Generate Parabricks run-scripts</p>
+<p class="rubric" id="step-02-1-fq2bam">Step 02.1: fq2bam</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/bash</span>
+
+<span class="s1">FASTA=&quot;/data/ngs/ref/Homo_sapiens_assembly38.fasta&quot;</span>
+<span class="s1">KNOWN_SITES=&quot;/data/ngs/ref/Homo_sapiens_assembly38.known_indels.vcf.gz&quot;</span>
+
+<span class="s1">READ1=&quot;/data/ngs/fastq/dw_sample_R1.fastq.gz&quot;</span>
+<span class="s1">READ2=&quot;/data/ngs/fastq/dw_sample_R2.fastq.gz&quot;</span>
+
+<span class="s1">pbrun fq2bam \</span>
+<span class="s1">--ref ${FASTA} \</span>
+<span class="s1">--in-fq ${READ1} ${READ2} \</span>
+<span class="s1">--num-gpus 1 \</span>
+<span class="s1">--knownSites ${KNOWN_SITES} \</span>
+<span class="s1">--out-bam pbrun_fq2bam_GPU.bam \</span>
+<span class="s1">--out-recal-file pbrun_recal_gpu.txt \</span>
+<span class="s1">--logfile fq2bam.log \</span>
+<span class="s1">--tmp-dir .&#39;</span><span class="w">  </span>&gt;<span class="w"> </span>fq2bam.sh
+</pre></div>
+</div>
+</div>
+</div>
+<section id="step-02-2-applybqsr">
+<h5>Step 02.2: applybqsr<a class="headerlink" href="#step-02-2-applybqsr" title="Link to this heading"></a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/bash</span>
+
+<span class="s1">FASTA=&quot;/data/ngs/ref/Homo_sapiens_assembly38.fasta&quot;</span>
+
+<span class="s1">pbrun applybqsr \</span>
+<span class="s1">--ref ${FASTA} \</span>
+<span class="s1">--in-bam pbrun_fq2bam_GPU.bam \</span>
+<span class="s1">--num-gpus 1 \</span>
+<span class="s1">--in-recal-file pbrun_recal_gpu.txt \</span>
+<span class="s1">--logfile applybqsr.log \</span>
+<span class="s1">--out-bam  pbrun_fq2bam_GPU_applybqsr.bam &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>applybqsr.sh<span class="w"> </span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="step-02-3-haplotypecaller">
+<h5>Step 02.3: haplotypecaller<a class="headerlink" href="#step-02-3-haplotypecaller" title="Link to this heading"></a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;#!/bin/bash</span>
+
+<span class="s1">FASTA=&quot;/data/ngs/ref/Homo_sapiens_assembly38.fasta&quot;</span>
+
+<span class="s1">pbrun haplotypecaller \</span>
+<span class="s1">--ref ${FASTA} \</span>
+<span class="s1">--num-gpus 1 \</span>
+<span class="s1">--in-bam pbrun_fq2bam_GPU_applybqsr.bam \</span>
+<span class="s1">--logfile hc.log \</span>
+<span class="s1">--out-variants  pbrun_fq2bam_GPU.bam_applybqsr.vcf &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>hc.sh
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="step-3-run-docker-in-interactive-mode">
+<h4>Step 3: Run docker in interactive mode<a class="headerlink" href="#step-3-run-docker-in-interactive-mode" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Run docker in interactive mode and enter the docker container</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+-it<span class="w"> </span><span class="se">\</span>
+--rm<span class="w"> </span><span class="se">\</span>
+--gpus<span class="w"> </span>all<span class="w"> </span><span class="se">\</span>
+-v<span class="w"> </span>/data:/data<span class="w"> </span><span class="se">\</span>
+-v<span class="w"> </span><span class="nv">$PWD</span>:<span class="nv">$PWD</span><span class="w"> </span><span class="se">\</span>
+-w<span class="w"> </span><span class="nv">$PWD</span><span class="w"> </span><span class="se">\</span>
+nvcr.io/nvidia/clara/clara-parabricks:4.3.0-1<span class="w"> </span>bash
+</pre></div>
+</div>
+</div>
+</section>
+<section id="step-4-execute-run-scripts">
+<h4>Step 4: Execute run_scripts<a class="headerlink" href="#step-4-execute-run-scripts" title="Link to this heading"></a></h4>
+<div class="admonition-now-you-are-inside-the-docker-container instructor-note admonition" id="instructor-note-0">
+<p class="admonition-title">Now you are inside the docker container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you are inside docker; you&#39;ll see `root@712558e5c91f:/home/ubuntu#`</span>
+<span class="c1"># Execute bash scripts you created</span>
+
+<span class="c1"># Run fq2bam.sh </span>
+bash<span class="w"> </span>fq2bam.sh
+
+<span class="c1"># Run applybqsr.sh </span>
+bash<span class="w"> </span>applybqsr.sh<span class="w"> </span>
+
+<span class="c1"># Run hc.sh</span>
+bash<span class="w"> </span>hc.sh
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Exit the docker container with <code class="docutils literal notranslate"><span class="pre">exit</span></code> command</p></li>
+</ul>
+</div>
+<section id="step-5-inspect-results">
+<h5>Step 5: Inspect results<a class="headerlink" href="#step-5-inspect-results" title="Link to this heading"></a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ls -l
+total 1041856
+-rw-r--r-- 1 root root      1707 Jun  5 21:42 applybqsr.log
+-rw-rw-r-- 1 1000 1000       255 Jun  5 21:16 applybqsr.sh
+drwxrwxr-x 3 1000 1000      4096 Jun  2 10:49 data
+-rw-r--r-- 1 root root   2551016 Jun  5 13:37 deepvariant.vcf
+-rw-r--r-- 1 root root      1893 Jun  5 13:37 dv.log
+-rw-rw-r-- 1 1000 1000        33 Jun  4 13:25 file-with-numbers.txt
+-rw-r--r-- 1 root root      4976 Jun  5 21:42 fq2bam.log
+-rw-rw-r-- 1 1000 1000       443 Jun  5 21:15 fq2bam.sh
+-rw-r--r-- 1 root root      1941 Jun  5 21:44 hc.log
+-rw-rw-r-- 1 1000 1000       235 Jun  5 21:17 hc.sh
+-rw-r--r-- 1 root root 516112463 Jun  5 21:42 pbrun_fq2bam_GPU.bam
+-rw-r--r-- 1 root root   5447024 Jun  5 21:42 pbrun_fq2bam_GPU.bam.bai
+-rw-r--r-- 1 root root   4719876 Jun  5 21:44 pbrun_fq2bam_GPU.bam_applybqsr.vcf
+-rw-r--r-- 1 root root 532038424 Jun  5 21:42 pbrun_fq2bam_GPU_applybqsr.bam
+-rw-r--r-- 1 root root   5447024 Jun  5 21:42 pbrun_fq2bam_GPU_applybqsr.bam.bai
+-rw-r--r-- 1 root root     86706 Jun  5 21:42 pbrun_fq2bam_GPU_chrs.txt
+-rw-r--r-- 1 root root    392014 Jun  5 21:42 pbrun_recal_gpu.txt
+-rw-r--r-- 1 root root         0 Jun  4 16:59 test
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<span id="document-05_Parabricks_vs_CPU"></span><section id="benchmarking-accelerated-next-generation-sequencing-analysis-pipelines">
+<h3>Benchmarking accelerated next-generation sequencing analysis pipelines<a class="headerlink" href="#benchmarking-accelerated-next-generation-sequencing-analysis-pipelines" title="Link to this heading"></a></h3>
+<section id="our-accelerated-ngs-analysis-benchmark-paper">
+<h4>Our Accelerated NGS analysis benchmark paper<a class="headerlink" href="#our-accelerated-ngs-analysis-benchmark-paper" title="Link to this heading"></a></h4>
+<p><img alt="alt text" src="_images/image-11.png" /></p>
+<ul class="simple">
+<li><p><strong><a class="reference external" href="https://academic.oup.com/bioinformaticsadvances/article/5/1/vbaf085/8132977">Link to the paper</a></strong></p></li>
+</ul>
+<section id="hardware-platforms-for-ngs-analysis">
+<h5>Hardware Platforms for NGS analysis<a class="headerlink" href="#hardware-platforms-for-ngs-analysis" title="Link to this heading"></a></h5>
+<div class="admonition-hardware-accelerated-platforms solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Hardware accelerated platforms</p>
+<p><img alt="alt text" src="_images/image-5.png" /></p>
+</div>
+</section>
+<section id="significant-performance-gain-can-be-achieved-with-any-accelerated-platform">
+<h5>Significant performance gain can be achieved with any accelerated platform<a class="headerlink" href="#significant-performance-gain-can-be-achieved-with-any-accelerated-platform" title="Link to this heading"></a></h5>
+<div class="admonition-runtime-comparison solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Runtime comparison</p>
+<p><img alt="alt text" src="_images/image-6.png" /></p>
+<p><em>Above is a cartoon figure to highlight the patters the original paper contains correct figures</em></p>
+</div>
+</section>
+<section id="speedup-quantify-performance-improvements-speedup-cpu-only-runtime-accelerated-runtime">
+<h5>Speedup ## Quantify performance improvements (Speedup  = CPU-only runtime ÷ Accelerated runtime)<a class="headerlink" href="#speedup-quantify-performance-improvements-speedup-cpu-only-runtime-accelerated-runtime" title="Link to this heading"></a></h5>
+</section>
+<section id="variant-calling-showed-higher-speedup-than-mapping">
+<h5>Variant calling showed higher speedup than Mapping<a class="headerlink" href="#variant-calling-showed-higher-speedup-than-mapping" title="Link to this heading"></a></h5>
+<div class="admonition-speedup-comparison solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Speedup comparison</p>
+<p><img alt="alt text" src="_images/image-7.png" />
+<em>Above is a cartoon figure to highlight the patters the original paper contains correct figures</em></p>
+</div>
+</section>
+<section id="parabricks-resource-usage-provided-new-insights">
+<h5>Parabricks resource usage provided new insights<a class="headerlink" href="#parabricks-resource-usage-provided-new-insights" title="Link to this heading"></a></h5>
+<div class="admonition-profiling-parabricks solution important dropdown admonition" id="solution-3">
+<p class="admonition-title">Profiling Parabricks</p>
+<p><img alt="alt text" src="_images/image-8.png" /></p>
+<p><em>Above is a cartoon figure to highlight the patters the original paper contains correct figures</em></p>
+</div>
+</section>
+<section id="optimizing-parabricks-for-further-performance-gains">
+<h5>Optimizing Parabricks for further performance gains<a class="headerlink" href="#optimizing-parabricks-for-further-performance-gains" title="Link to this heading"></a></h5>
+<div class="admonition-solution solution important dropdown admonition" id="solution-4">
+<p class="admonition-title">Solution</p>
+<p><img alt="alt text" src="_images/image-9.png" /></p>
+<p><em>Above is a cartoon figure to highlight the patters the original paper contains correct figures</em></p>
+</div>
+</section>
+<section id="parabricks-and-dragen-speedup-and-cost-consideration">
+<h5>Parabricks and DRAGEN, speedup and cost consideration<a class="headerlink" href="#parabricks-and-dragen-speedup-and-cost-consideration" title="Link to this heading"></a></h5>
+<div class="admonition-practical-selection-framework solution important dropdown admonition" id="solution-5">
+<p class="admonition-title">Practical Selection Framework</p>
+<p><img alt="alt text" src="_images/image-10.png" /></p>
+<p><em>Above is a cartoon figure to highlight the patters the original paper contains correct figures</em></p>
+</div>
+</section>
+</section>
+<section id="accelerated-ngs-analysis-nextflow-pipeline">
+<h4>Accelerated NGS analysis NextFlow pipeline<a class="headerlink" href="#accelerated-ngs-analysis-nextflow-pipeline" title="Link to this heading"></a></h4>
+<p><img alt="alt text" src="_images/image-12.png" /></p>
+</section>
+</section>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

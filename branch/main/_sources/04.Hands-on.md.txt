@@ -1,0 +1,175 @@
+# Parabricks Hands-on
+
+:::{objectives}
+
+- Run Basic Parabricks pipeline
+- Time: 30 minutes
+:::
+
+## Step 01: Checklist
+
+:::{Checklist}
+
+1. Login to the VM assigned to you (Follow the instructions given previously)
+2. Check for docker image - `nvcr.io/nvidia/clara/clara-parabricks:4.3.0-1`
+
+**Commands:**
+
+```bash
+# List Docker images in the VM
+docker images
+# Move the home directory
+cd $HOME
+# Check current working-directory (check if you are in $HOME)
+echo current working directory: $(pwd)
+```
+
+:::{solution} Output
+
+```none
+REPOSITORY                              TAG       IMAGE ID       CREATED         SIZE
+nvcr.io/nvidia/clara/clara-parabricks   4.3.0-1   1a84efd2eedf   14 months ago   3.23GB
+
+current working directory: /home/ubuntu
+```
+
+:::
+:::
+
+## Step 02: Generate Parabricks run-scripts
+
+### Step 02.1: fq2bam
+
+:::{note}
+
+```bash
+echo '#!/bin/bash
+
+FASTA="/data/ngs/ref/Homo_sapiens_assembly38.fasta"
+KNOWN_SITES="/data/ngs/ref/Homo_sapiens_assembly38.known_indels.vcf.gz"
+
+READ1="/data/ngs/fastq/dw_sample_R1.fastq.gz"
+READ2="/data/ngs/fastq/dw_sample_R2.fastq.gz"
+
+pbrun fq2bam \
+--ref ${FASTA} \
+--in-fq ${READ1} ${READ2} \
+--num-gpus 1 \
+--knownSites ${KNOWN_SITES} \
+--out-bam pbrun_fq2bam_GPU.bam \
+--out-recal-file pbrun_recal_gpu.txt \
+--logfile fq2bam.log \
+--tmp-dir .'  > fq2bam.sh
+```
+
+:::
+
+### Step 02.2: applybqsr
+
+:::{note}
+
+```bash
+echo '#!/bin/bash
+
+FASTA="/data/ngs/ref/Homo_sapiens_assembly38.fasta"
+
+pbrun applybqsr \
+--ref ${FASTA} \
+--in-bam pbrun_fq2bam_GPU.bam \
+--num-gpus 1 \
+--in-recal-file pbrun_recal_gpu.txt \
+--logfile applybqsr.log \
+--out-bam  pbrun_fq2bam_GPU_applybqsr.bam ' > applybqsr.sh 
+```
+
+:::
+
+### Step 02.3: haplotypecaller
+
+:::{note}
+
+```bash
+echo '#!/bin/bash
+
+FASTA="/data/ngs/ref/Homo_sapiens_assembly38.fasta"
+
+pbrun haplotypecaller \
+--ref ${FASTA} \
+--num-gpus 1 \
+--in-bam pbrun_fq2bam_GPU_applybqsr.bam \
+--logfile hc.log \
+--out-variants  pbrun_fq2bam_GPU.bam_applybqsr.vcf ' > hc.sh
+```
+
+:::
+
+## Step 3: Run docker in interactive mode
+
+- Run docker in interactive mode and enter the docker container
+
+:::{note}
+
+```bash
+docker run \
+-it \
+--rm \
+--gpus all \
+-v /data:/data \
+-v $PWD:$PWD \
+-w $PWD \
+nvcr.io/nvidia/clara/clara-parabricks:4.3.0-1 bash
+```
+
+:::
+
+## Step 4: Execute run_scripts
+
+:::{instructor-note} Now you are inside the docker container
+
+```bash
+# If you are inside docker; you'll see `root@712558e5c91f:/home/ubuntu#`
+# Execute bash scripts you created
+
+# Run fq2bam.sh 
+bash fq2bam.sh
+
+# Run applybqsr.sh 
+bash applybqsr.sh 
+
+# Run hc.sh
+bash hc.sh
+
+```
+
+- Exit the docker container with `exit` command
+
+:::
+
+### Step 5: Inspect results
+
+:::{note}
+
+```none
+ls -l
+total 1041856
+-rw-r--r-- 1 root root      1707 Jun  5 21:42 applybqsr.log
+-rw-rw-r-- 1 1000 1000       255 Jun  5 21:16 applybqsr.sh
+drwxrwxr-x 3 1000 1000      4096 Jun  2 10:49 data
+-rw-r--r-- 1 root root   2551016 Jun  5 13:37 deepvariant.vcf
+-rw-r--r-- 1 root root      1893 Jun  5 13:37 dv.log
+-rw-rw-r-- 1 1000 1000        33 Jun  4 13:25 file-with-numbers.txt
+-rw-r--r-- 1 root root      4976 Jun  5 21:42 fq2bam.log
+-rw-rw-r-- 1 1000 1000       443 Jun  5 21:15 fq2bam.sh
+-rw-r--r-- 1 root root      1941 Jun  5 21:44 hc.log
+-rw-rw-r-- 1 1000 1000       235 Jun  5 21:17 hc.sh
+-rw-r--r-- 1 root root 516112463 Jun  5 21:42 pbrun_fq2bam_GPU.bam
+-rw-r--r-- 1 root root   5447024 Jun  5 21:42 pbrun_fq2bam_GPU.bam.bai
+-rw-r--r-- 1 root root   4719876 Jun  5 21:44 pbrun_fq2bam_GPU.bam_applybqsr.vcf
+-rw-r--r-- 1 root root 532038424 Jun  5 21:42 pbrun_fq2bam_GPU_applybqsr.bam
+-rw-r--r-- 1 root root   5447024 Jun  5 21:42 pbrun_fq2bam_GPU_applybqsr.bam.bai
+-rw-r--r-- 1 root root     86706 Jun  5 21:42 pbrun_fq2bam_GPU_chrs.txt
+-rw-r--r-- 1 root root    392014 Jun  5 21:42 pbrun_recal_gpu.txt
+-rw-r--r-- 1 root root         0 Jun  4 16:59 test
+```
+
+:::
